@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Btn</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap-reboot.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap-grid.min.css">
+        <link rel="stylesheet" href="./dist/Pagination.css">
+    </head>
+    <body>
+        <div id="app" class="container">
+            <h1 class="mb-5">pagination</h1>
+
+            <pagination :page="1" :total-pages="100"></pagination>
+            <pagination :page="50" :total-pages="100"></pagination>
+            <pagination :page="100" :total-pages="100"></pagination>
+
+            <hr>
+            
+            <h2>Sizes</h2>
+
+            <pagination size="sm" :page="1" :total-pages="100"></pagination>
+            <pagination :page="1" :total-pages="100"></pagination>
+            <pagination size="lg" :page="1" :total-pages="100"></pagination>
+
+            <hr>
+
+            <h2>Alignment</h2>
+
+            <pagination align="start" :page="50" :total-pages="100"></pagination>
+            <pagination align="center" :page="50" :total-pages="100"></pagination>
+            <pagination align="end" :page="50" :total-pages="100"></pagination>
+
+            <hr>
+
+            <h2>Change Number of Pages</h2>
+            
+            <p>(Must be an even number)</p>
+
+            <pagination :page="50" :total-pages="100" :show-pages="4"></pagination>
+            <pagination :page="50" :total-pages="100" :show-pages="10"></pagination>
+            <pagination :page="50" :total-pages="100" :show-pages="20"></pagination>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script type="text/javascript" src="./dist/Pagination.umd.js"></script>
+        <script type="text/javascript">
+            const vue = new Vue({
+                el: '#app',
+                components: {
+                    Pagination
+                },
+                data() {
+                    return {
+                        form: {
+                            checkbox: []
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
