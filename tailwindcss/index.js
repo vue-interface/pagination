@@ -40,14 +40,14 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
             Object.assign(component[selector]['.page-item'], {
                 '&:first-child': {
                     '.page-link': {
-                        'border-top-left-radius': borderRadius,
-                        'border-bottom-left-radius': borderRadius,
+                        borderTopLeftRadius: borderRadius,
+                        borderBottomLeftRadius: borderRadius,
                     }
                 },
                 '&:last-child': {
                     '.page-link': {
-                        'border-top-right-radius': borderRadius,
-                        'border-bottom-right-radius': borderRadius,
+                        borderTopRightRadius: borderRadius,
+                        borderBottomRightRadius: borderRadius,
                     }
                 }
             });
@@ -77,31 +77,31 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
         // Base styles
         //
         '.pagination': {
-            'display': 'flex',
-            'padding-left': 0,
-            'list-style': 'none', 
+            display: 'flex',
+            paddingLeft: 0,
+            listStyle: 'none', 
         },
         
         '.page-link': {
-            'position': 'relative',
-            'display': 'block',
-            'color': theme('pagination.color'),
-            'text-decoration': 'none',
-            'background-color': theme('pagination.backgroundColor'),
-            'border': `${theme('pagination.borderWidth')} solid ${theme('pagination.borderColor')}`,
+            position: 'relative',
+            display: 'block',
+            color: theme('pagination.color'),
+            textDecoration: 'none',
+            backgroundColor: theme('pagination.backgroundColor'),
+            border: `${theme('pagination.borderWidth')} solid ${theme('pagination.borderColor')}`,
           
             '&:hover': {
-                'z-index': 2,
-                'color': theme('pagination.hover.color'),
-                'text-decoration': 'none',
-                'background-color': theme('pagination.hover.backgroundColor'),
-                'border-color': theme('pagination.hover.borderColor')
+                zIndex: 2,
+                color: theme('pagination.hover.color'),
+                textDecoration: 'none',
+                backgroundColor: theme('pagination.hover.backgroundColor'),
+                borderColor: theme('pagination.hover.borderColor')
             },
           
             '&:focus': {
-                'z-index': 3,
-                'outline': theme('pagination.focus.outline'),
-                'box-shadow': `0 0 0 ${theme('pagination.focus.width')} ${theme('pagination.focus.borderColor')}`
+                zIndex: 3,
+                outline: theme('pagination.focus.outline'),
+                boxShadow: `0 0 0 ${theme('pagination.focus.width')} ${theme('pagination.focus.borderColor')}`
             }
         },
           
@@ -111,18 +111,18 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
             },
           
             '&.active .page-link': {
-                'z-index': 3,
-                'color': theme('pagination.active.color'),
-                'background-color': theme('pagination.active.backgroundColor'),
-                'background-image': theme('pagination.enableGradients') ? theme('pagination.gradient') : undefined,
-                'border-color': theme('pagination.active.borderColor')
+                zIndex: 3,
+                color: theme('pagination.active.color'),
+                backgroundColor: theme('pagination.active.backgroundColor'),
+                backgroundImage: theme('pagination.enableGradients') ? theme('pagination.gradient') : undefined,
+                borderColor: theme('pagination.active.borderColor')
             },
           
             '&.disabled .page-link': {
-                'color': theme('pagination.disabled.color'),
-                'pointer-events': 'none',
-                'background-color': theme('pagination.disabled.backgroundColor'),
-                'border-color': theme('pagination.disabled.borderColor')
+                color: theme('pagination.disabled.color'),
+                pointerEvents: 'none',
+                backgroundColor: theme('pagination.disabled.backgroundColor'),
+                borderColor: theme('pagination.disabled.borderColor')
             }
         },          
     };
