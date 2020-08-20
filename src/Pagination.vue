@@ -20,8 +20,8 @@
                         :class="item.class"
                         :data-label="item.label"
                         @click.prevent="paginate(item.page, $event)">
-                        <span v-if="item.label" aria-hidden="true">{{ item.label }}</span>
-                        <span v-if="item.page" aria-hidden="true">{{ item.page }}</span>
+                        <span v-if="item.label" aria-hidden="true" v-html="item.label" />
+                        <span v-if="item.page" aria-hidden="true" v-html="item.page" />
                     </a>
                 </slot>
             </li>
