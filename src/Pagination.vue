@@ -8,7 +8,7 @@
                     </span>
                 </a>
             </li>
-            <li v-for="(item, i) in pages" :key="i" :data-page="item.page" class="page-item" :class="{'active': item.page === currentPage, 'disabled': !!item.divider}">
+            <li v-for="(item, i) in pages" :key="i" :data-page="item.page" class="page-item" :class="{'active': item.page === currentPage, 'disabled': !!item.divider || !!item.disabled}">
                 <slot :item="item">
                     <a v-if="item.divider" class="page-link">
                         &hellip;
@@ -162,7 +162,7 @@ export default {
                     pages.push({ divider: true });
                 }
 
-                pages.push({ page: this.totalPages < Infinity ? this.totalPages : '&#8734;' });
+                pages.push({ page: this.totalPages < Infinity ? this.totalPages : '&#8734;', disabled: this.totalPages === Infinity });
             }
 
             return pages;
