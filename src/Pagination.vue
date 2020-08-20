@@ -20,8 +20,8 @@
                         :class="item.class"
                         :data-label="item.label"
                         @click.prevent="paginate(item.page, $event)">
-                        <span v-if="item.label" aria-hidden="true" v-html="item.label" />
-                        <span v-if="item.page" aria-hidden="true" v-html="item.page" />
+                        <span v-if="item.label" aria-hidden="true">{{ item.label }}</span>
+                        <span v-if="item.page" aria-hidden="true">{{ item.page }}</span>
                     </a>
                 </slot>
             </li>
@@ -162,7 +162,7 @@ export default {
                     pages.push({ divider: true });
                 }
 
-                pages.push({ page: this.totalPages });
+                pages.push({ page: this.totalPages < Infinity ? this.totalPages : '&#8734;' });
             }
 
             return pages;
