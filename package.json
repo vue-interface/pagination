@@ -1,6 +1,6 @@
 {
   "name": "@vue-interface/pagination",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "A Vue pagination component.",
   "main": "index.js",
   "scripts": {
