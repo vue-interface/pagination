@@ -1515,12 +1515,12 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./src/css/Pagination.css
 var Pagination = __webpack_require__("755f");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"720f0081-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Pagination.vue?vue&type=template&id=6dc5219a&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',[_c('ul',{staticClass:"pagination",class:_vm.classes},[_c('li',{staticClass:"page-item",class:{'disabled': _vm.currentPage === 1}},[_c('a',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous"},on:{"click":function($event){$event.preventDefault();return _vm.prev($event)}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v(" « ")])])]),_vm._l((_vm.pages),function(item,i){return _c('li',{key:i,staticClass:"page-item",class:{'active': item.page === _vm.currentPage, 'disabled': !!item.divider || !!item.disabled},attrs:{"data-page":item.page}},[_vm._t("default",[(item.divider)?_c('a',{staticClass:"page-link"},[_vm._v(" … ")]):_c('a',{staticClass:"page-link",class:item.class,attrs:{"href":"#","data-label":item.label},on:{"click":function($event){$event.preventDefault();return _vm.paginate(item.page, $event)}}},[(item.label)?_c('span',{attrs:{"aria-hidden":"true"},domProps:{"innerHTML":_vm._s(item.label)}}):_vm._e(),(item.page)?_c('span',{attrs:{"aria-hidden":"true"},domProps:{"innerHTML":_vm._s(item.page)}}):_vm._e()])],{"item":item})],2)}),_c('li',{staticClass:"page-item",class:{'disabled': _vm.currentPage >= _vm.totalPages}},[_c('a',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Next"},on:{"click":function($event){$event.preventDefault();return _vm.next($event)}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v(" » ")])])])],2)])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"79fbf99c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Pagination.vue?vue&type=template&id=6340d356&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',[_c('ul',{staticClass:"pagination",class:_vm.classes},[_c('li',{staticClass:"page-item",class:{'disabled': _vm.disabled || _vm.currentPage === 1}},[_c('a',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous"},on:{"click":function($event){$event.preventDefault();return _vm.prev($event)}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v(" « ")])])]),_vm._l((_vm.pages),function(item,i){return _c('li',{key:i,staticClass:"page-item",class:{'active': item.page === _vm.currentPage, 'disabled': _vm.disabled || !!item.divider || !!item.disabled},attrs:{"data-page":item.page}},[_vm._t("default",[(item.divider)?_c('a',{staticClass:"page-link"},[_vm._v(" … ")]):_c('a',{staticClass:"page-link",class:item.class,attrs:{"href":"#","disabled":_vm.disabled,"data-label":item.label},on:{"click":function($event){$event.preventDefault();return _vm.paginate(item.page, $event)}}},[(item.label)?_c('span',{attrs:{"aria-hidden":"true"},domProps:{"innerHTML":_vm._s(item.label)}}):_vm._e(),(item.page)?_c('span',{attrs:{"aria-hidden":"true"},domProps:{"innerHTML":_vm._s(item.page)}}):_vm._e()])],{"item":item})],2)}),_c('li',{staticClass:"page-item",class:{'disabled': _vm.disabled || _vm.currentPage >= _vm.totalPages}},[_c('a',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Next"},on:{"click":function($event){$event.preventDefault();return _vm.next($event)}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v(" » ")])])])],2)])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/Pagination.vue?vue&type=template&id=6dc5219a&
+// CONCATENATED MODULE: ./src/Pagination.vue?vue&type=template&id=6340d356&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.index-of.js
 var es_array_index_of = __webpack_require__("c975");
@@ -1936,6 +1936,7 @@ function transition(el, defaultValue) {
 //
 //
 //
+//
 
 /* harmony default export */ var Paginationvue_type_script_lang_js_ = ({
   name: 'Pagination',
@@ -1952,6 +1953,7 @@ function transition(el, defaultValue) {
         return ['start', 'end', 'center'].indexOf(value) !== -1;
       }
     },
+    disabled: Boolean,
 
     /**
      * The page on which the paginator should start.
@@ -1959,16 +1961,6 @@ function transition(el, defaultValue) {
      * @prop String
      */
     page: {
-      type: Number,
-      "default": 1
-    },
-
-    /**
-     * The total number of pages in the paginator.
-     *
-     * @prop String
-     */
-    totalPages: {
       type: Number,
       "default": 1
     },
@@ -1982,6 +1974,16 @@ function transition(el, defaultValue) {
     showPages: {
       type: Number,
       "default": 6
+    },
+
+    /**
+     * The total number of pages in the paginator.
+     *
+     * @prop String
+     */
+    totalPages: {
+      type: Number,
+      "default": 1
     }
   },
   data: function data() {

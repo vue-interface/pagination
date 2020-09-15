@@ -1,14 +1,14 @@
 <template>
     <nav>
         <ul class="pagination" :class="classes">
-            <li class="page-item" :class="{'disabled': currentPage === 1}">
+            <li class="page-item" :class="{'disabled': disabled || currentPage === 1}">
                 <a href="#" class="page-link" aria-label="Previous" @click.prevent="prev($event)">
                     <span aria-hidden="true">
                         &laquo;
                     </span>
                 </a>
             </li>
-            <li v-for="(item, i) in pages" :key="i" :data-page="item.page" class="page-item" :class="{'active': item.page === currentPage, 'disabled': !!item.divider || !!item.disabled}">
+            <li v-for="(item, i) in pages" :key="i" :data-page="item.page" class="page-item" :class="{'active': item.page === currentPage, 'disabled': disabled || !!item.divider || !!item.disabled}">
                 <slot :item="item">
                     <a v-if="item.divider" class="page-link">
                         &hellip;
@@ -18,6 +18,7 @@
                         href="#"
                         class="page-link"
                         :class="item.class"
+                        :disabled="disabled"
                         :data-label="item.label"
                         @click.prevent="paginate(item.page, $event)">
                         <span v-if="item.label" aria-hidden="true" v-html="item.label" />
@@ -25,7 +26,7 @@
                     </a>
                 </slot>
             </li>
-            <li class="page-item" :class="{'disabled': currentPage >= totalPages}">
+            <li class="page-item" :class="{'disabled': disabled || currentPage >= totalPages}">
                 <a href="#" class="page-link" aria-label="Next" @click.prevent="next($event)">
                     <span aria-hidden="true">
                         &raquo;
@@ -60,22 +61,14 @@ export default {
             }
         },
 
+        disabled: Boolean,
+
         /**
          * The page on which the paginator should start.
          *
          * @prop String
          */
         page: {
-            type: Number,
-            default: 1
-        },
-
-        /**
-         * The total number of pages in the paginator.
-         *
-         * @prop String
-         */
-        totalPages: {
             type: Number,
             default: 1
         },
@@ -89,6 +82,16 @@ export default {
         showPages: {
             type: Number,
             default: 6
+        },
+
+        /**
+         * The total number of pages in the paginator.
+         *
+         * @prop String
+         */
+        totalPages: {
+            type: Number,
+            default: 1
         }
 
     },
