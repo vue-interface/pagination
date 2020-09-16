@@ -36,26 +36,26 @@
   },
   "homepage": "https://github.com/vue-interface/pagination/docs#readme",
   "dependencies": {
-    "@vue-interface/shadowable": "^0.9.0",
+    "@vue-interface/shadowable": "^0.9.1",
     "@vue-interface/sizeable": "^0.9.1",
-    "@vue-interface/variant": "^1.0.11",
+    "@vue-interface/variant": "^1.0.12",
     "core-js": "^3.6.4",
     "hex-to-rgba": "^2.0.1",
-    "tailwindcss": "^1.6.0",
-    "vue": "^2.6.11"
+    "tailwindcss": "^1.8.10",
+    "vue": "^2.6.12"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0",
-    "@vue/cli-plugin-eslint": "^4.0",
-    "@vue/cli-service": "^4.0",
-    "@vuepress/plugin-register-components": "^1.5.2",
+    "@vue/cli-plugin-babel": "^4.5.6",
+    "@vue/cli-plugin-eslint": "^4.5.6",
+    "@vue/cli-service": "^4.5.6",
+    "@vuepress/plugin-register-components": "^1.5.4",
     "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
+    "eslint": "^7.9.0",
     "eslint-plugin-vue": "^6.2.2",
     "markdown-it-meta": "0.0.1",
-    "postcss-cli": "^7.1.1",
-    "vue-template-compiler": "^2.6.11",
-    "vuepress": "^1.5.2",
+    "postcss-cli": "^7.1.2",
+    "vue-template-compiler": "^2.6.12",
+    "vuepress": "^1.5.4",
     "vuepress-plugin-template-constants": "^0.2.1",
     "webpack-manifest-plugin": "^2.2.0"
   }
