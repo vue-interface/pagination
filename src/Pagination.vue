@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import Shadowable from '@vue-interface/shadowable';
 import Sizeable from '@vue-interface/sizeable';
 
 export default {
@@ -45,6 +46,7 @@ export default {
     name: 'Pagination',
 
     mixins: [
+        Shadowable,
         Sizeable
     ],
 
@@ -110,6 +112,7 @@ export default {
 
         classes() {
             return {
+                [this.shadowableClass]: !!this.shadow,
                 [this.sizeableClass]: !!this.sizeableClass,
                 ['justify-content-' + this.align]: !!this.align
             };

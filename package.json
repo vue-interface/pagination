@@ -36,6 +36,7 @@
   },
   "homepage": "https://github.com/vue-interface/pagination/docs#readme",
   "dependencies": {
+    "@vue-interface/shadowable": "^0.9.0",
     "@vue-interface/sizeable": "^0.9.1",
     "@vue-interface/variant": "^1.0.11",
     "core-js": "^3.6.4",

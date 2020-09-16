@@ -1515,12 +1515,12 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: ./src/css/Pagination.css
 var Pagination = __webpack_require__("755f");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"79fbf99c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Pagination.vue?vue&type=template&id=6340d356&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3c299dca-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/Pagination.vue?vue&type=template&id=3d38ec88&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',[_c('ul',{staticClass:"pagination",class:_vm.classes},[_c('li',{staticClass:"page-item",class:{'disabled': _vm.disabled || _vm.currentPage === 1}},[_c('a',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Previous"},on:{"click":function($event){$event.preventDefault();return _vm.prev($event)}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v(" « ")])])]),_vm._l((_vm.pages),function(item,i){return _c('li',{key:i,staticClass:"page-item",class:{'active': item.page === _vm.currentPage, 'disabled': _vm.disabled || !!item.divider || !!item.disabled},attrs:{"data-page":item.page}},[_vm._t("default",[(item.divider)?_c('a',{staticClass:"page-link"},[_vm._v(" … ")]):_c('a',{staticClass:"page-link",class:item.class,attrs:{"href":"#","disabled":_vm.disabled,"data-label":item.label},on:{"click":function($event){$event.preventDefault();return _vm.paginate(item.page, $event)}}},[(item.label)?_c('span',{attrs:{"aria-hidden":"true"},domProps:{"innerHTML":_vm._s(item.label)}}):_vm._e(),(item.page)?_c('span',{attrs:{"aria-hidden":"true"},domProps:{"innerHTML":_vm._s(item.page)}}):_vm._e()])],{"item":item})],2)}),_c('li',{staticClass:"page-item",class:{'disabled': _vm.disabled || _vm.currentPage >= _vm.totalPages}},[_c('a',{staticClass:"page-link",attrs:{"href":"#","aria-label":"Next"},on:{"click":function($event){$event.preventDefault();return _vm.next($event)}}},[_c('span',{attrs:{"aria-hidden":"true"}},[_vm._v(" » ")])])])],2)])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/Pagination.vue?vue&type=template&id=6340d356&
+// CONCATENATED MODULE: ./src/Pagination.vue?vue&type=template&id=3d38ec88&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.index-of.js
 var es_array_index_of = __webpack_require__("c975");
@@ -1856,6 +1856,50 @@ function transition(el, defaultValue) {
 
 
 
+// CONCATENATED MODULE: ./node_modules/@vue-interface/shadowable/index.js
+
+
+/* harmony default export */ var shadowable = ({
+
+    props: {
+
+        /**
+         * The shadow size.
+         *
+         * @property String
+         */
+        shadow: {
+            type: String,
+            validate(valu) {
+                return [
+                    'shadow-sm',
+                    'shadow-md',
+                    'shadow-lg'
+                ].indexOf(prefix_prefix(value, this.shadowableClassPrefix)) !== -1;
+            }
+        },
+        
+        /**
+         * The shadow class prefix.
+         *
+         * @property String
+         */
+        shadowableClassPrefix: {
+            type: String,
+            default: 'shadow'
+        }
+    },
+
+    computed: {
+
+        shadowableClass() {
+            return prefix_prefix(this.shadow, this.shadowableClassPrefix);
+        }
+
+    }
+
+});
+
 // CONCATENATED MODULE: ./node_modules/@vue-interface/sizeable/src/Sizeable.js
 
 
@@ -1938,9 +1982,10 @@ function transition(el, defaultValue) {
 //
 //
 
+
 /* harmony default export */ var Paginationvue_type_script_lang_js_ = ({
   name: 'Pagination',
-  mixins: [sizeable],
+  mixins: [shadowable, sizeable],
   props: {
     /**
      * The alignment of the pagination component.
@@ -1998,7 +2043,7 @@ function transition(el, defaultValue) {
     classes: function classes() {
       var _ref;
 
-      return _ref = {}, _defineProperty(_ref, this.sizeableClass, !!this.sizeableClass), _defineProperty(_ref, 'justify-content-' + this.align, !!this.align), _ref;
+      return _ref = {}, _defineProperty(_ref, this.shadowableClass, !!this.shadow), _defineProperty(_ref, this.sizeableClass, !!this.sizeableClass), _defineProperty(_ref, 'justify-content-' + this.align, !!this.align), _ref;
     }
   },
   methods: {
