@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import Shadowable from '@vue-interface/shadowable';
-import Sizeable from '@vue-interface/sizeable';
+import { Shadowable } from '@vue-interface/shadowable';
+import { Sizeable } from '@vue-interface/sizeable';
 
 export default {
 

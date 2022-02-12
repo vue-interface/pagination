@@ -1,12 +1,7 @@
 const Color = require('color');
-const rgba = require('hex-to-rgba');
 const plugin = require('tailwindcss/plugin');
-const { colors, padding } = require('tailwindcss/defaultTheme');
-const defaultVariations = require('@vue-interface/variant/tailwindcss/defaultVariations');
-
-function darken(color, ...args) {
-    return Color(color).darken(...args).hex();
-}
+const colors = require('tailwindcss/colors');
+const variations = require('@vue-interface/variant/tailwindcss/variations');
 
 module.exports = plugin(function({ addComponents, theme, postcss }) {
     function variant(key, paddingY, paddingX, fontSize, borderRadius) {
@@ -14,10 +9,10 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
 
         if(key) {
             Object.assign(component[':root'], {
-                [`--pagination-${key}-font-size`]: fontSize,
-                [`--pagination-${key}-padding-y`]: paddingY,
-                [`--pagination-${key}-padding-x`]: paddingX,
-                [`--pagination-${key}-border-radius`]: borderRadius
+                // [`--pagination-${key}-font-size`]: fontSize,
+                // [`--pagination-${key}-padding-y`]: paddingY,
+                // [`--pagination-${key}-padding-x`]: paddingX,
+                // [`--pagination-${key}-border-radius`]: borderRadius
             });
         }
 
@@ -63,14 +58,14 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
 
     const component = {
         ':root': {
-            '--pagination-padding-y': theme('pagination.paddingY'),
-            '--pagination-padding-x': theme('pagination.paddingX'),
-            '--pagination-margin-left': theme('pagination.marginLeft'),
-            '--pagination-color': theme('pagination.color'),
-            '--pagination-background-color': theme('pagination.backgroundColor'),
-            '--pagination-border-width': theme('pagination.borderWidth'),
-            '--pagination-border-radius': theme('pagination.borderRadius'),
-            '--pagination-border-color': theme('pagination.borderColor'),
+            // '--pagination-padding-y': theme('pagination.paddingY'),
+            // '--pagination-padding-x': theme('pagination.paddingX'),
+            // '--pagination-margin-left': theme('pagination.marginLeft'),
+            // '--pagination-color': theme('pagination.color'),
+            // '--pagination-background-color': theme('pagination.backgroundColor'),
+            // '--pagination-border-width': theme('pagination.borderWidth'),
+            // '--pagination-border-radius': theme('pagination.borderRadius'),
+            // '--pagination-border-color': theme('pagination.borderColor'),
         },
 
         //
@@ -79,7 +74,19 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
         '.pagination': {
             display: 'flex',
             paddingLeft: 0,
-            listStyle: 'none', 
+            listStyle: 'none',
+
+            '&.justify-content-start': {
+                justifyContent: 'start'
+            },
+
+            '&.justify-content-center': {
+                justifyContent: 'center'
+            },
+
+            '&.justify-content-end': {
+                justifyContent: 'end'
+            }
         },
         
         '.page-link': {
@@ -114,7 +121,7 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
                 zIndex: 3,
                 color: theme('pagination.active.color'),
                 backgroundColor: theme('pagination.active.backgroundColor'),
-                backgroundImage: theme('pagination.enableGradients') ? theme('pagination.gradient') : undefined,
+                // backgroundImage: theme('pagination.enableGradients') ? theme('pagination.gradient') : undefined,
                 borderColor: theme('pagination.active.borderColor')
             },
           
@@ -123,6 +130,13 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
                 pointerEvents: 'none',
                 backgroundColor: theme('pagination.disabled.backgroundColor'),
                 borderColor: theme('pagination.disabled.borderColor')
+            },
+          
+            '&.disabled.active .page-link': {
+                color: theme('pagination.disabled.backgroundColor'),
+                pointerEvents: 'none',
+                backgroundColor: theme('pagination.disabled.color'),
+                borderColor: theme('pagination.disabled.color'),
             }
         },          
     };
@@ -135,12 +149,12 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
 }, {
     theme: {
         pagination: theme => ({
-            enableGradients: true,
-            gradient: `linear-gradient(180deg, rgba(${theme('colors.white', colors.white)}, .15), rgba(${theme('colors.white', colors.white)}, 0))`,
+            // enableGradients: false,
+            // gradient: `linear-gradient(180deg, ${Color(theme('variation.primary', variations.primary)).fade(.5)}, ${theme('variation.primary', variations.primary)})`,
             paddingY: '.375rem',
             paddingX: '.75rem',
             marginLeft: '-1px',
-            color: theme('variations.primary', defaultVariations.primary),
+            color: theme('variations.primary', variations.primary),
             backgroundColor: theme('colors.white', colors.white),
             borderWidth: '1px',
             borderRadius: '.25rem',
@@ -158,27 +172,27 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
 
             focus: {
                 width: '.25rem',
-                borderColor: rgba(theme('variations.primary', defaultVariations.primary), .5),
+                borderColor: Color(theme('variations.primary', variations.primary)).fade(.5),
                 outline: 0,
             },
             
             hover: {
-                color: darken(theme('variations.primary', defaultVariations.primary), .15),
+                color: Color(theme('variations.primary', variations.primary)).darken(.15),
                 backgroundColor: theme('colors.gray.100', colors.gray[100]),
                 borderColor: theme('colors.gray.200', colors.gray[200]),
             },
             
             active: {
                 color: theme('colors.white', colors.white),
-                backgroundColor: theme('variations.primary', defaultVariations.primary),
-                borderColor: theme('colors.white', colors.white),
+                backgroundColor: theme('variations.primary', variations.primary),
+                borderColor: theme('variations.primary', variations.primary),
             },
             
             disabled: {
-                color: theme('colors.gray.500', colors.gray[500]),
+                color: theme('colors.gray.400', colors.gray[400]),
                 backgroundColor: theme('colors.white', colors.white),
                 borderColor: theme('colors.gray.200', colors.gray[200]),
-            },
+            }
         })
     }
 });

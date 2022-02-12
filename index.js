@@ -1,2 +1,5 @@
-import Pagination from './src/Pagination';
-export default Pagination;
+import Pagination from './src/Pagination.vue';
+
+export {
+    Pagination
+};
