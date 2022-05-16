@@ -3,71 +3,8 @@ const plugin = require('tailwindcss/plugin');
 const colors = require('tailwindcss/colors');
 const variations = require('@vue-interface/variant/tailwindcss/variations');
 
-module.exports = plugin(function({ addComponents, theme, postcss }) {
-    function variant(key, paddingY, paddingX, fontSize, borderRadius) {
-        const selector = key ? `.pagination-${key}` : '.pagination';
-
-        if(key) {
-            Object.assign(component[':root'], {
-                // [`--pagination-${key}-font-size`]: fontSize,
-                // [`--pagination-${key}-padding-y`]: paddingY,
-                // [`--pagination-${key}-padding-x`]: paddingX,
-                // [`--pagination-${key}-border-radius`]: borderRadius
-            });
-        }
-
-        if(!component[selector]) {
-            component[selector] = {};
-        }
-
-        Object.assign(component[selector], {
-            '.page-link': {
-                fontSize,
-                padding: `${paddingY} ${paddingX}`
-            }
-        });
-
-        if(!component[selector]['.page-item']) {
-            component[selector]['.page-item'] = {};
-        }        
-
-        if(theme('pagination.marginLeft') === `-${theme('pagination.borderWidth')}`) {
-            Object.assign(component[selector]['.page-item'], {
-                '&:first-child': {
-                    '.page-link': {
-                        borderTopLeftRadius: borderRadius,
-                        borderBottomLeftRadius: borderRadius,
-                    }
-                },
-                '&:last-child': {
-                    '.page-link': {
-                        borderTopRightRadius: borderRadius,
-                        borderBottomRightRadius: borderRadius,
-                    }
-                }
-            });
-        }
-        else {
-            Object.assign(component[selector], {
-                ['.page-item']: {
-                    borderRadius
-                }
-            });
-        }
-    }
-
-    const component = {
-        ':root': {
-            // '--pagination-padding-y': theme('pagination.paddingY'),
-            // '--pagination-padding-x': theme('pagination.paddingX'),
-            // '--pagination-margin-left': theme('pagination.marginLeft'),
-            // '--pagination-color': theme('pagination.color'),
-            // '--pagination-background-color': theme('pagination.backgroundColor'),
-            // '--pagination-border-width': theme('pagination.borderWidth'),
-            // '--pagination-border-radius': theme('pagination.borderRadius'),
-            // '--pagination-border-color': theme('pagination.borderColor'),
-        },
-
+module.exports = plugin(function({ addComponents, matchComponents, theme }) {
+    addComponents({
         //
         // Base styles
         //
@@ -88,7 +25,7 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
                 justifyContent: 'end'
             }
         },
-        
+                
         '.page-link': {
             position: 'relative',
             display: 'block',
@@ -96,6 +33,8 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
             textDecoration: 'none',
             backgroundColor: theme('pagination.backgroundColor'),
             border: `${theme('pagination.borderWidth')} solid ${theme('pagination.borderColor')}`,
+            fontSize: theme('pagination.fontSize'),
+            padding: theme('pagination.padding'),
           
             '&:hover': {
                 zIndex: 2,
@@ -109,12 +48,12 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
                 zIndex: 3,
                 outline: theme('pagination.focus.outline'),
                 boxShadow: `0 0 0 ${theme('pagination.focus.width')} ${theme('pagination.focus.borderColor')}`
-            }
+            },
         },
           
         '.page-item': {
             '&:not(:first-child) .page-link': {
-                'margin-left': theme('pagination.marginLeft')
+                marginLeft: theme('pagination.marginLeft')
             },
           
             '&.active .page-link': {
@@ -137,22 +76,44 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
                 pointerEvents: 'none',
                 backgroundColor: theme('pagination.disabled.color'),
                 borderColor: theme('pagination.disabled.color'),
-            }
-        },          
-    };
+            },
 
-    variant(null, theme('pagination.paddingY'), theme('pagination.paddingX'), theme('pagination.fontSize'), theme('pagination.borderRadius'));
-    variant('lg', theme('pagination.lg.paddingY'), theme('pagination.lg.paddingX'), theme('pagination.lg.fontSize'), theme('pagination.lg.borderRadius'));
-    variant('sm', theme('pagination.sm.paddingY'), theme('pagination.sm.paddingX'), theme('pagination.sm.fontSize'), theme('pagination.sm.borderRadius'));
-    
-    addComponents(component);
+            '&:first-child .page-link': {
+                borderTopLeftRadius: theme('pagination.borderRadius'),
+                borderBottomLeftRadius: theme('pagination.borderRadius'),
+            },
+
+            '&:last-child .page-link': {
+                borderTopRightRadius: theme('pagination.borderRadius'),
+                borderBottomRightRadius: theme('pagination.borderRadius'),
+            }
+        },
+    });
+
+    matchComponents({
+        pagination: ({ borderRadius, fontSize, padding }) => ({
+            '.page-link': {
+                fontSize,
+                padding,
+            },
+            '.page-item:first-child .page-link': {
+                borderTopLeftRadius: borderRadius,
+                borderBottomLeftRadius: borderRadius,
+            },
+            '.page-item:last-child .page-link': {
+                borderTopRightRadius: borderRadius,
+                borderBottomRightRadius: borderRadius,
+            }
+        })
+    }, {
+        values: theme('pagination.sizes')
+    });
 }, {
     theme: {
         pagination: theme => ({
             // enableGradients: false,
             // gradient: `linear-gradient(180deg, ${Color(theme('variation.primary', variations.primary)).fade(.5)}, ${theme('variation.primary', variations.primary)})`,
-            paddingY: '.375rem',
-            paddingX: '.75rem',
+            padding: '.375rem .75rem',
             marginLeft: '-1px',
             color: theme('variations.primary', variations.primary),
             backgroundColor: theme('colors.white', colors.white),
@@ -160,26 +121,30 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
             borderRadius: '.25rem',
             borderColor: theme('colors.gray.200', colors.gray[200]),
 
-            sm: {
-                paddingY: '.25rem',
-                paddingX: '.5rem',
-            },
-
-            lg: {
-                paddingY: '.75rem',
-                paddingX: '1.5rem',
+            sizes: {
+                sm: {
+                    borderRadius: '.15rem',
+                    fontSize: '.85rem',
+                    padding: '.25rem .5rem',
+                },
+    
+                lg: {
+                    borderRadius: '.5rem',
+                    fontSize: '1.25rem',
+                    padding: '.75rem 1.5rem',
+                },
             },
 
             focus: {
                 width: '.25rem',
-                borderColor: Color(theme('variations.primary', variations.primary)).fade(.5),
+                borderColor: Color(theme('variations.primary', variations.primary)).fade(.5).hex(),
                 outline: 0,
             },
             
             hover: {
-                color: Color(theme('variations.primary', variations.primary)).darken(.15),
-                backgroundColor: theme('colors.gray.100', colors.gray[100]),
-                borderColor: theme('colors.gray.200', colors.gray[200]),
+                color: Color(theme('variations.primary', variations.primary)).darken(.15).hex(),
+                backgroundColor: theme('colors.gray.100', colors.gray['100']),
+                borderColor: theme('colors.gray.200', colors.gray['200']),
             },
             
             active: {
@@ -189,9 +154,9 @@ module.exports = plugin(function({ addComponents, theme, postcss }) {
             },
             
             disabled: {
-                color: theme('colors.gray.400', colors.gray[400]),
+                color: theme('colors.gray.400', colors.gray['400']),
                 backgroundColor: theme('colors.white', colors.white),
-                borderColor: theme('colors.gray.200', colors.gray[200]),
+                borderColor: theme('colors.gray.200', colors.gray['200']),
             }
         })
     }

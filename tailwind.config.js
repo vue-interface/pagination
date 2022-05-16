@@ -1,12 +1,17 @@
+const colors = require('tailwindcss/colors');
+
 module.exports = {
     content: [
         "./index.html"
     ],
     theme: {
-        extend: {},
+        extend: {
+            variations: {
+                primary: colors.fuchsia['700']
+            }
+        },
     },
     plugins: [
-        require('@vue-interface/variant/tailwindcss'),
         require('./tailwindcss')
     ],
     safelist: [
