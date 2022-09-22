@@ -1,4 +1,5 @@
-var Shadowable = {
+import { openBlock as n, createElementBlock as l, createElementVNode as o, normalizeClass as h, withModifiers as g, Fragment as f, renderList as P, createTextVNode as b, toDisplayString as w, renderSlot as _, createCommentVNode as c } from "vue";
+var x = {
   props: {
     dropShadow: [Boolean, String],
     dropShadowableClassPrefix: {
@@ -13,120 +14,48 @@ var Shadowable = {
   },
   computed: {
     shadowableClass() {
-      const dropShadowClassName = this.dropShadow === true ? "" : this.dropShadow && `-${this.dropShadow}`;
-      const shadowClassName = this.shadow === true ? "" : this.shadow && `-${this.shadow}`;
+      const e = this.dropShadow === !0 ? "" : this.dropShadow && `-${this.dropShadow}`, a = this.shadow === !0 ? "" : this.shadow && `-${this.shadow}`;
       return {
-        [`${this.dropShadowableClassPrefix}${dropShadowClassName}`]: !!this.dropShadow,
-        [`${this.shadowableClassPrefix}${shadowClassName}`]: !!this.shadow
+        [`${this.dropShadowableClassPrefix}${e}`]: !!this.dropShadow,
+        [`${this.shadowableClassPrefix}${a}`]: !!this.shadow
       };
     }
   }
 };
-var Sizeable = {
+const C = {
   props: {
+    componentPrefix: String,
     size: String,
-    sizePrefix: {
-      type: String,
-      default() {
-        return this.$options.name && this.$options.name.toLowerCase();
-      }
-    }
+    sizePrefix: String
   },
   computed: {
     sizeableClassPrefix() {
-      return this.sizePrefix;
+      return this.sizePrefix || this.componentPrefix;
+    },
+    hasSizeablePrefix() {
+      return this.size && !!this.size.match(
+        new RegExp(`^${this.sizeableClassPrefix}`)
+      );
     },
     sizeableClass() {
-      if (!this.size || !this.sizeableClassPrefix) {
-        return "";
-      }
-      return `${this.sizeableClassPrefix}-${this.size}`;
+      return this.size ? !this.sizeableClassPrefix || this.hasSizeablePrefix ? this.size : `${this.sizeableClassPrefix}-${this.size}` : "";
     }
   }
-};
-var render = function() {
-  var _vm = this;
-  var _h = _vm.$createElement;
-  var _c = _vm._self._c || _h;
-  return _c("nav", [_c("ul", { staticClass: "pagination", class: _vm.classes }, [_c("li", { staticClass: "page-item", class: { "disabled": _vm.disabled || _vm.currentPage === 1 } }, [_c("a", { staticClass: "page-link", attrs: { "href": "#", "aria-label": "Previous" }, on: { "click": function($event) {
-    $event.preventDefault();
-    return _vm.prev($event);
-  } } }, [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v(" \xAB ")])])]), _vm._l(_vm.pages, function(item, i) {
-    return _c("li", { key: i, staticClass: "page-item", class: { "active": item.page === _vm.currentPage, "disabled": _vm.disabled || !!item.divider || !!item.disabled }, attrs: { "data-page": item.page } }, [_vm._t("default", function() {
-      return [item.divider ? _c("a", { staticClass: "page-link" }, [_vm._v(" \u2026 ")]) : _c("a", { staticClass: "page-link", class: item.class, attrs: { "href": "#", "disabled": _vm.disabled, "data-label": item.label }, on: { "click": function($event) {
-        $event.preventDefault();
-        return _vm.paginate(item.page, $event);
-      } } }, [item.label ? _c("span", { attrs: { "aria-hidden": "true" }, domProps: { "innerHTML": _vm._s(item.label) } }) : _vm._e(), item.page ? _c("span", { attrs: { "aria-hidden": "true" }, domProps: { "innerHTML": _vm._s(item.page) } }) : _vm._e()])];
-    }, { "item": item })], 2);
-  }), _c("li", { staticClass: "page-item", class: { "disabled": _vm.disabled || _vm.currentPage >= _vm.totalPages } }, [_c("a", { staticClass: "page-link", attrs: { "href": "#", "aria-label": "Next" }, on: { "click": function($event) {
-    $event.preventDefault();
-    return _vm.next($event);
-  } } }, [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v(" \xBB ")])])])], 2)]);
-};
-var staticRenderFns = [];
-function normalizeComponent(scriptExports, render2, staticRenderFns2, functionalTemplate, injectStyles, scopeId, moduleIdentifier, shadowMode) {
-  var options = typeof scriptExports === "function" ? scriptExports.options : scriptExports;
-  if (render2) {
-    options.render = render2;
-    options.staticRenderFns = staticRenderFns2;
-    options._compiled = true;
-  }
-  if (functionalTemplate) {
-    options.functional = true;
-  }
-  if (scopeId) {
-    options._scopeId = "data-v-" + scopeId;
-  }
-  var hook;
-  if (moduleIdentifier) {
-    hook = function(context) {
-      context = context || this.$vnode && this.$vnode.ssrContext || this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext;
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== "undefined") {
-        context = __VUE_SSR_CONTEXT__;
-      }
-      if (injectStyles) {
-        injectStyles.call(this, context);
-      }
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier);
-      }
-    };
-    options._ssrRegister = hook;
-  } else if (injectStyles) {
-    hook = shadowMode ? function() {
-      injectStyles.call(this, (options.functional ? this.parent : this).$root.$options.shadowRoot);
-    } : injectStyles;
-  }
-  if (hook) {
-    if (options.functional) {
-      options._injectStyles = hook;
-      var originalRender = options.render;
-      options.render = function renderWithStyleInjection(h, context) {
-        hook.call(context);
-        return originalRender(h, context);
-      };
-    } else {
-      var existing = options.beforeCreate;
-      options.beforeCreate = existing ? [].concat(existing, hook) : [hook];
-    }
-  }
-  return {
-    exports: scriptExports,
-    options
-  };
-}
-const __vue2_script = {
+}, S = (e, a) => {
+  const t = e.__vccOpts || e;
+  for (const [d, i] of a)
+    t[d] = i;
+  return t;
+}, z = {
   name: "Pagination",
   mixins: [
-    Shadowable,
-    Sizeable
+    x,
+    C
   ],
   props: {
     align: {
       type: String,
-      validate: (value) => {
-        return ["start", "end", "center"].indexOf(value) !== -1;
-      }
+      validate: (e) => ["start", "end", "center"].indexOf(e) !== -1
     },
     disabled: Boolean,
     page: {
@@ -160,54 +89,90 @@ const __vue2_script = {
     }
   },
   methods: {
-    next(event) {
-      this.paginate(this.currentPage >= this.totalPages ? this.currentPage : this.currentPage + 1, event);
+    next(e) {
+      this.paginate(this.currentPage >= this.totalPages ? this.currentPage : this.currentPage + 1, e);
     },
-    prev(event) {
-      this.paginate(this.currentPage <= 1 ? this.currentPage : this.currentPage - 1, event);
+    prev(e) {
+      this.paginate(this.currentPage <= 1 ? this.currentPage : this.currentPage - 1, e);
     },
-    paginate(page, event) {
-      if (event.currentTarget.parentNode.classList.contains("disabled")) {
-        return;
-      }
-      this.currentPage = page;
-      this.$emit("paginate", page, event);
+    paginate(e, a) {
+      a.currentTarget.parentNode.classList.contains("disabled") || (this.currentPage = e, this.$emit("paginate", e, a));
     },
     generate() {
-      const pages = [];
-      const showPages = this.showPages % 2 ? this.showPages + 1 : this.showPages;
-      let startPage = this.currentPage >= showPages ? this.currentPage - showPages / 2 : 1;
-      const startOffset = showPages + startPage;
-      const endPage = this.totalPages < startOffset ? this.totalPages : startOffset;
-      const diff = startPage - endPage + showPages;
-      startPage -= startPage - diff > 0 ? diff : 0;
-      if (startPage > 1) {
-        pages.push({ page: 1 });
-      }
-      if (startPage > 2) {
-        pages.push({ divider: true });
-      }
-      for (let i = startPage; i < endPage; i++) {
-        pages.push({ page: i });
-      }
-      if (endPage <= this.totalPages) {
-        if (this.totalPages - 1 > endPage) {
-          pages.push({ divider: true });
-        }
-        pages.push({ page: this.totalPages < Infinity ? this.totalPages : "&#8734;", disabled: this.totalPages === Infinity });
-      }
-      return pages;
+      const e = [], a = this.showPages % 2 ? this.showPages + 1 : this.showPages;
+      let t = this.currentPage >= a ? this.currentPage - a / 2 : 1;
+      const d = a + t, i = this.totalPages < d ? this.totalPages : d, r = t - i + a;
+      t -= t - r > 0 ? r : 0, t > 1 && e.push({ page: 1 }), t > 2 && e.push({ divider: !0 });
+      for (let s = t; s < i; s++)
+        e.push({ page: s });
+      return i <= this.totalPages && (this.totalPages - 1 > i && e.push({ divider: !0 }), e.push({ page: this.totalPages < 1 / 0 ? this.totalPages : "&#8734;", disabled: this.totalPages === 1 / 0 })), e;
     }
   }
-};
-const __cssModules = {};
-var __component__ = /* @__PURE__ */ normalizeComponent(__vue2_script, render, staticRenderFns, false, __vue2_injectStyles, null, null, null);
-function __vue2_injectStyles(context) {
-  for (let o in __cssModules) {
-    this[o] = __cssModules[o];
-  }
+}, k = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xAB ", -1), m = [
+  k
+], y = ["data-page"], v = {
+  key: 0,
+  class: "page-link"
+}, N = ["disabled", "data-label", "onClick"], L = ["innerHTML"], T = ["innerHTML"], B = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xBB ", -1), M = [
+  B
+];
+function H(e, a, t, d, i, r) {
+  return n(), l("nav", null, [
+    o("ul", {
+      class: h(["pagination", r.classes])
+    }, [
+      o("li", {
+        class: h(["page-item", { disabled: t.disabled || i.currentPage === 1 }])
+      }, [
+        o("a", {
+          href: "#",
+          class: "page-link",
+          "aria-label": "Previous",
+          onClick: a[0] || (a[0] = g((s) => r.prev(s), ["prevent"]))
+        }, m)
+      ], 2),
+      (n(!0), l(f, null, P(r.pages, (s, u) => (n(), l("li", {
+        key: u,
+        "data-page": s.page,
+        class: h(["page-item", { active: s.page === i.currentPage, disabled: t.disabled || !!s.divider || !!s.disabled }])
+      }, [
+        b(w(s) + " ", 1),
+        _(e.$slots, "default", { item: s }, () => [
+          s.divider ? (n(), l("a", v, " \u2026 ")) : (n(), l("a", {
+            key: 1,
+            href: "#",
+            class: h(["page-link", s.class]),
+            disabled: t.disabled,
+            "data-label": s.label,
+            onClick: g((p) => r.paginate(s.page, p), ["prevent"])
+          }, [
+            s.label ? (n(), l("span", {
+              key: 0,
+              "aria-hidden": "true",
+              innerHTML: s.label
+            }, null, 8, L)) : c("", !0),
+            s.page ? (n(), l("span", {
+              key: 1,
+              "aria-hidden": "true",
+              innerHTML: s.page
+            }, null, 8, T)) : c("", !0)
+          ], 10, N))
+        ])
+      ], 10, y))), 128)),
+      o("li", {
+        class: h(["page-item", { disabled: t.disabled || i.currentPage >= t.totalPages }])
+      }, [
+        o("a", {
+          href: "#",
+          class: "page-link",
+          "aria-label": "Next",
+          onClick: a[1] || (a[1] = g((s) => r.next(s), ["prevent"]))
+        }, M)
+      ], 2)
+    ], 2)
+  ]);
 }
-var Pagination = /* @__PURE__ */ function() {
-  return __component__.exports;
-}();
-export { Pagination };
+const O = /* @__PURE__ */ S(z, [["render", H]]);
+export {
+  O as Pagination
+};

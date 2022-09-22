@@ -37,11 +37,10 @@
 
         <script type="module">
             import './index.css';
-            import Vue from 'vue/dist/vue';
+            import { createApp } from 'vue/dist/vue.esm-bundler';
             import { Pagination } from './index.js';
 
-            const vue = new Vue({
-                el: '#app',
+            createApp({
                 components: {
                     Pagination
                 },
@@ -52,7 +51,7 @@
                         }
                     }
                 }
-            });
+            }).mount('#app');
         </script>
     </body>
 </html>
