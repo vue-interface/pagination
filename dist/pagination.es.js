@@ -1,5 +1,5 @@
-import { openBlock as n, createElementBlock as l, createElementVNode as o, normalizeClass as h, withModifiers as g, Fragment as f, renderList as P, createTextVNode as b, toDisplayString as w, renderSlot as _, createCommentVNode as c } from "vue";
-var x = {
+import { openBlock as n, createElementBlock as l, createElementVNode as o, normalizeClass as h, withModifiers as g, Fragment as f, renderList as P, renderSlot as b, createCommentVNode as c } from "vue";
+const w = {
   props: {
     dropShadow: [Boolean, String],
     dropShadowableClassPrefix: {
@@ -21,8 +21,7 @@ var x = {
       };
     }
   }
-};
-const C = {
+}, _ = {
   props: {
     componentPrefix: String,
     size: String,
@@ -41,16 +40,16 @@ const C = {
       return this.size ? !this.sizeableClassPrefix || this.hasSizeablePrefix ? this.size : `${this.sizeableClassPrefix}-${this.size}` : "";
     }
   }
-}, S = (e, a) => {
+}, x = (e, a) => {
   const t = e.__vccOpts || e;
   for (const [d, i] of a)
     t[d] = i;
   return t;
-}, z = {
+}, C = {
   name: "Pagination",
   mixins: [
-    x,
-    C
+    w,
+    _
   ],
   props: {
     align: {
@@ -108,15 +107,15 @@ const C = {
       return i <= this.totalPages && (this.totalPages - 1 > i && e.push({ divider: !0 }), e.push({ page: this.totalPages < 1 / 0 ? this.totalPages : "&#8734;", disabled: this.totalPages === 1 / 0 })), e;
     }
   }
-}, k = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xAB ", -1), m = [
-  k
-], y = ["data-page"], v = {
+}, z = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xAB ", -1), S = [
+  z
+], k = ["data-page"], m = {
   key: 0,
   class: "page-link"
-}, N = ["disabled", "data-label", "onClick"], L = ["innerHTML"], T = ["innerHTML"], B = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xBB ", -1), M = [
-  B
+}, y = ["disabled", "data-label", "onClick"], v = ["innerHTML"], N = ["innerHTML"], L = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xBB ", -1), B = [
+  L
 ];
-function H(e, a, t, d, i, r) {
+function M(e, a, t, d, i, r) {
   return n(), l("nav", null, [
     o("ul", {
       class: h(["pagination", r.classes])
@@ -129,16 +128,15 @@ function H(e, a, t, d, i, r) {
           class: "page-link",
           "aria-label": "Previous",
           onClick: a[0] || (a[0] = g((s) => r.prev(s), ["prevent"]))
-        }, m)
+        }, S)
       ], 2),
       (n(!0), l(f, null, P(r.pages, (s, u) => (n(), l("li", {
         key: u,
         "data-page": s.page,
         class: h(["page-item", { active: s.page === i.currentPage, disabled: t.disabled || !!s.divider || !!s.disabled }])
       }, [
-        b(w(s) + " ", 1),
-        _(e.$slots, "default", { item: s }, () => [
-          s.divider ? (n(), l("a", v, " \u2026 ")) : (n(), l("a", {
+        b(e.$slots, "default", { item: s }, () => [
+          s.divider ? (n(), l("a", m, " \u2026 ")) : (n(), l("a", {
             key: 1,
             href: "#",
             class: h(["page-link", s.class]),
@@ -150,15 +148,15 @@ function H(e, a, t, d, i, r) {
               key: 0,
               "aria-hidden": "true",
               innerHTML: s.label
-            }, null, 8, L)) : c("", !0),
+            }, null, 8, v)) : c("", !0),
             s.page ? (n(), l("span", {
               key: 1,
               "aria-hidden": "true",
               innerHTML: s.page
-            }, null, 8, T)) : c("", !0)
-          ], 10, N))
+            }, null, 8, N)) : c("", !0)
+          ], 10, y))
         ])
-      ], 10, y))), 128)),
+      ], 10, k))), 128)),
       o("li", {
         class: h(["page-item", { disabled: t.disabled || i.currentPage >= t.totalPages }])
       }, [
@@ -167,12 +165,12 @@ function H(e, a, t, d, i, r) {
           class: "page-link",
           "aria-label": "Next",
           onClick: a[1] || (a[1] = g((s) => r.next(s), ["prevent"]))
-        }, M)
+        }, B)
       ], 2)
     ], 2)
   ]);
 }
-const O = /* @__PURE__ */ S(z, [["render", H]]);
+const H = /* @__PURE__ */ x(C, [["render", M]]);
 export {
-  O as Pagination
+  H as Pagination
 };
