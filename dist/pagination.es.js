@@ -1,12 +1,18 @@
-import { openBlock as n, createElementBlock as l, createElementVNode as o, normalizeClass as h, withModifiers as g, Fragment as f, renderList as P, renderSlot as b, createCommentVNode as c } from "vue";
-const w = {
+import { defineComponent as c, openBlock as r, createElementBlock as l, createElementVNode as o, normalizeClass as h, withModifiers as g, Fragment as P, renderList as b, renderSlot as w, createCommentVNode as p } from "vue";
+const x = c({
   props: {
-    dropShadow: [Boolean, String],
+    dropShadow: {
+      type: [Boolean, String],
+      default: void 0
+    },
     dropShadowableClassPrefix: {
       type: String,
       default: "drop-shadow"
     },
-    shadow: [Boolean, String],
+    shadow: {
+      type: [Boolean, String],
+      default: void 0
+    },
     shadowableClassPrefix: {
       type: String,
       default: "shadow"
@@ -14,41 +20,48 @@ const w = {
   },
   computed: {
     shadowableClass() {
-      const e = this.dropShadow === !0 ? "" : this.dropShadow && `-${this.dropShadow}`, a = this.shadow === !0 ? "" : this.shadow && `-${this.shadow}`;
+      const e = this.dropShadow === !0 ? "" : this.dropShadow && `-${this.dropShadow}`, s = this.shadow === !0 ? "" : this.shadow && `-${this.shadow}`;
       return {
         [`${this.dropShadowableClassPrefix}${e}`]: !!this.dropShadow,
-        [`${this.shadowableClassPrefix}${a}`]: !!this.shadow
+        [`${this.shadowableClassPrefix}${s}`]: !!this.shadow
       };
     }
   }
-}, _ = {
+}), _ = c({
   props: {
-    componentPrefix: String,
-    size: String,
-    sizePrefix: String
+    componentPrefix: {
+      type: String,
+      default: void 0
+    },
+    size: {
+      type: String,
+      default: void 0
+    },
+    sizePrefix: {
+      type: String,
+      default: void 0
+    }
   },
   computed: {
     sizeableClassPrefix() {
       return this.sizePrefix || this.componentPrefix;
     },
     hasSizeablePrefix() {
-      return this.size && !!this.size.match(
-        new RegExp(`^${this.sizeableClassPrefix}`)
-      );
+      return this.size === void 0 ? !1 : !!this.size.match(new RegExp(`^${this.sizeableClassPrefix}`));
     },
     sizeableClass() {
       return this.size ? !this.sizeableClassPrefix || this.hasSizeablePrefix ? this.size : `${this.sizeableClassPrefix}-${this.size}` : "";
     }
   }
-}, x = (e, a) => {
-  const t = e.__vccOpts || e;
-  for (const [d, i] of a)
-    t[d] = i;
-  return t;
-}, C = {
+}), y = (e, s) => {
+  const a = e.__vccOpts || e;
+  for (const [d, i] of s)
+    a[d] = i;
+  return a;
+}, v = {
   name: "Pagination",
   mixins: [
-    w,
+    x,
     _
   ],
   props: {
@@ -68,6 +81,10 @@ const w = {
     totalPages: {
       type: Number,
       default: 1
+    },
+    componentPrefix: {
+      type: String,
+      default: "pagination"
     }
   },
   data() {
@@ -75,16 +92,18 @@ const w = {
       currentPage: this.page
     };
   },
+  mounted() {
+    console.log(this.classes);
+  },
   computed: {
     pages() {
       return this.generate();
     },
     classes() {
-      return {
-        [this.shadowableClass]: !!this.shadow,
+      return Object.assign({
         [this.sizeableClass]: !!this.sizeableClass,
-        ["justify-content-" + this.align]: !!this.align
-      };
+        [`justify-content-${this.align}`]: !!this.align
+      }, this.shadowableClass);
     }
   },
   methods: {
@@ -94,83 +113,83 @@ const w = {
     prev(e) {
       this.paginate(this.currentPage <= 1 ? this.currentPage : this.currentPage - 1, e);
     },
-    paginate(e, a) {
-      a.currentTarget.parentNode.classList.contains("disabled") || (this.currentPage = e, this.$emit("paginate", e, a));
+    paginate(e, s) {
+      s.currentTarget.parentNode.classList.contains("disabled") || (this.currentPage = e, this.$emit("paginate", e, s));
     },
     generate() {
-      const e = [], a = this.showPages % 2 ? this.showPages + 1 : this.showPages;
-      let t = this.currentPage >= a ? this.currentPage - a / 2 : 1;
-      const d = a + t, i = this.totalPages < d ? this.totalPages : d, r = t - i + a;
-      t -= t - r > 0 ? r : 0, t > 1 && e.push({ page: 1 }), t > 2 && e.push({ divider: !0 });
-      for (let s = t; s < i; s++)
-        e.push({ page: s });
+      const e = [], s = this.showPages % 2 ? this.showPages + 1 : this.showPages;
+      let a = this.currentPage >= s ? this.currentPage - s / 2 : 1;
+      const d = s + a, i = this.totalPages < d ? this.totalPages : d, n = a - i + s;
+      a -= a - n > 0 ? n : 0, a > 1 && e.push({ page: 1 }), a > 2 && e.push({ divider: !0 });
+      for (let t = a; t < i; t++)
+        e.push({ page: t });
       return i <= this.totalPages && (this.totalPages - 1 > i && e.push({ divider: !0 }), e.push({ page: this.totalPages < 1 / 0 ? this.totalPages : "&#8734;", disabled: this.totalPages === 1 / 0 })), e;
     }
   }
-}, z = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xAB ", -1), S = [
-  z
-], k = ["data-page"], m = {
+}, C = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xAB ", -1), S = [
+  C
+], z = ["data-page"], m = {
   key: 0,
   class: "page-link"
-}, y = ["disabled", "data-label", "onClick"], v = ["innerHTML"], N = ["innerHTML"], L = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xBB ", -1), B = [
-  L
+}, k = ["disabled", "data-label", "onClick"], N = ["innerHTML"], L = ["innerHTML"], B = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xBB ", -1), M = [
+  B
 ];
-function M(e, a, t, d, i, r) {
-  return n(), l("nav", null, [
+function T(e, s, a, d, i, n) {
+  return r(), l("nav", null, [
     o("ul", {
-      class: h(["pagination", r.classes])
+      class: h(["pagination", n.classes])
     }, [
       o("li", {
-        class: h(["page-item", { disabled: t.disabled || i.currentPage === 1 }])
+        class: h(["page-item", { disabled: a.disabled || i.currentPage === 1 }])
       }, [
         o("a", {
           href: "#",
           class: "page-link",
           "aria-label": "Previous",
-          onClick: a[0] || (a[0] = g((s) => r.prev(s), ["prevent"]))
+          onClick: s[0] || (s[0] = g((t) => n.prev(t), ["prevent"]))
         }, S)
       ], 2),
-      (n(!0), l(f, null, P(r.pages, (s, u) => (n(), l("li", {
+      (r(!0), l(P, null, b(n.pages, (t, u) => (r(), l("li", {
         key: u,
-        "data-page": s.page,
-        class: h(["page-item", { active: s.page === i.currentPage, disabled: t.disabled || !!s.divider || !!s.disabled }])
+        "data-page": t.page,
+        class: h(["page-item", { active: t.page === i.currentPage, disabled: a.disabled || !!t.divider || !!t.disabled }])
       }, [
-        b(e.$slots, "default", { item: s }, () => [
-          s.divider ? (n(), l("a", m, " \u2026 ")) : (n(), l("a", {
+        w(e.$slots, "default", { item: t }, () => [
+          t.divider ? (r(), l("a", m, " \u2026 ")) : (r(), l("a", {
             key: 1,
             href: "#",
-            class: h(["page-link", s.class]),
-            disabled: t.disabled,
-            "data-label": s.label,
-            onClick: g((p) => r.paginate(s.page, p), ["prevent"])
+            class: h(["page-link", t.class]),
+            disabled: a.disabled,
+            "data-label": t.label,
+            onClick: g((f) => n.paginate(t.page, f), ["prevent"])
           }, [
-            s.label ? (n(), l("span", {
+            t.label ? (r(), l("span", {
               key: 0,
               "aria-hidden": "true",
-              innerHTML: s.label
-            }, null, 8, v)) : c("", !0),
-            s.page ? (n(), l("span", {
+              innerHTML: t.label
+            }, null, 8, N)) : p("", !0),
+            t.page ? (r(), l("span", {
               key: 1,
               "aria-hidden": "true",
-              innerHTML: s.page
-            }, null, 8, N)) : c("", !0)
-          ], 10, y))
+              innerHTML: t.page
+            }, null, 8, L)) : p("", !0)
+          ], 10, k))
         ])
-      ], 10, k))), 128)),
+      ], 10, z))), 128)),
       o("li", {
-        class: h(["page-item", { disabled: t.disabled || i.currentPage >= t.totalPages }])
+        class: h(["page-item", { disabled: a.disabled || i.currentPage >= a.totalPages }])
       }, [
         o("a", {
           href: "#",
           class: "page-link",
           "aria-label": "Next",
-          onClick: a[1] || (a[1] = g((s) => r.next(s), ["prevent"]))
-        }, B)
+          onClick: s[1] || (s[1] = g((t) => n.next(t), ["prevent"]))
+        }, M)
       ], 2)
     ], 2)
   ]);
 }
-const H = /* @__PURE__ */ x(C, [["render", M]]);
+const O = /* @__PURE__ */ y(v, [["render", T]]);
 export {
-  H as Pagination
+  O as Pagination
 };

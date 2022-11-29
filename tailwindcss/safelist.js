@@ -1,4 +1,6 @@
 module.exports = () => ([
-    {pattern: /pagination/},
+    {
+        pattern: /pagination/
+    },
     'page-link'
 ]);

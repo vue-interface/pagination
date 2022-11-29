@@ -94,7 +94,15 @@ export default {
         totalPages: {
             type: Number,
             default: 1
-        }
+        },
+
+        /**
+         * The component prefix.
+         */
+         componentPrefix: {
+            type: String,
+            default: 'pagination'
+        },
 
     },
 
@@ -104,6 +112,10 @@ export default {
         };
     },
 
+    mounted() {
+        console.log(this.classes);
+    },
+
     computed: {
 
         pages() {
@@ -111,11 +123,10 @@ export default {
         },
 
         classes() {
-            return {
-                [this.shadowableClass]: !!this.shadow,
+            return Object.assign({
                 [this.sizeableClass]: !!this.sizeableClass,
-                ['justify-content-' + this.align]: !!this.align
-            };
+                [`justify-content-${this.align}`]: !!this.align
+            }, this.shadowableClass);
         }
 
     },
