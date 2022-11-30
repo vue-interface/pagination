@@ -112,10 +112,6 @@ export default {
         };
     },
 
-    mounted() {
-        console.log(this.classes);
-    },
-
     computed: {
 
         pages() {
