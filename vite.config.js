@@ -1,9 +1,8 @@
+import vue from '@vitejs/plugin-vue';
+import { pascalCase } from 'change-case';
 import path from 'path';
 import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
 import { name } from './package.json';
-import { pascalCase } from "change-case";
-import { babel } from '@rollup/plugin-babel';
 
 const filename = name.split('/')[1];
 
@@ -27,12 +26,7 @@ export default defineConfig({
                 globals: {
                     vue: 'Vue'
                 },
-            },
-            plugins: [
-                babel({
-                    babelHelpers: 'bundled'
-                })
-            ]
+            }
         },
         watch: !process.env.NODE_ENV && {
             include: [

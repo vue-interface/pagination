@@ -1,42 +1,3 @@
-<template>
-    <nav>
-        <ul class="pagination" :class="classes">
-            <li class="page-item" :class="{'disabled': disabled || currentPage === 1}">
-                <a href="#" class="page-link" aria-label="Previous" @click.prevent="prev($event)">
-                    <span aria-hidden="true">
-                        &laquo;
-                    </span>
-                </a>
-            </li>
-            <li v-for="(item, i) in pages" :key="i" :data-page="item.page" class="page-item" :class="{'active': item.page === currentPage, 'disabled': disabled || !!item.divider || !!item.disabled}">
-                <slot :item="item">
-                    <a v-if="item.divider" class="page-link">
-                        &hellip;
-                    </a>
-                    <a
-                        v-else
-                        href="#"
-                        class="page-link"
-                        :class="item.class"
-                        :disabled="disabled"
-                        :data-label="item.label"
-                        @click.prevent="paginate(item.page, $event)">
-                        <span v-if="item.label" aria-hidden="true" v-html="item.label" />
-                        <span v-if="item.page" aria-hidden="true" v-html="item.page" />
-                    </a>
-                </slot>
-            </li>
-            <li class="page-item" :class="{'disabled': disabled || currentPage >= totalPages}">
-                <a href="#" class="page-link" aria-label="Next" @click.prevent="next($event)">
-                    <span aria-hidden="true">
-                        &raquo;
-                    </span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</template>
-
 <script>
 import { Shadowable } from '@vue-interface/shadowable';
 import { Sizeable } from '@vue-interface/sizeable';
@@ -99,7 +60,7 @@ export default {
         /**
          * The component prefix.
          */
-         componentPrefix: {
+        componentPrefix: {
             type: String,
             default: 'pagination'
         },
@@ -185,3 +146,69 @@ export default {
 
 };
 </script>
+
+<template>
+    <nav>
+        <ul
+            class="pagination"
+            :class="classes">
+            <li
+                class="page-item"
+                :class="{'disabled': disabled || currentPage === 1}">
+                <a
+                    href="#"
+                    class="page-link"
+                    aria-label="Previous"
+                    @click.prevent="prev($event)">
+                    <span aria-hidden="true">
+                        &laquo;
+                    </span>
+                </a>
+            </li>
+            <li
+                v-for="(item, i) in pages"
+                :key="i"
+                :data-page="item.page"
+                class="page-item"
+                :class="{'active': item.page === currentPage, 'disabled': disabled || !!item.divider || !!item.disabled}">
+                <slot :item="item">
+                    <a
+                        v-if="item.divider"
+                        class="page-link">
+                        &hellip;
+                    </a>
+                    <a
+                        v-else
+                        href="#"
+                        class="page-link"
+                        :class="item.class"
+                        :disabled="disabled"
+                        :data-label="item.label"
+                        @click.prevent="paginate(item.page, $event)">
+                        <span
+                            v-if="item.label"
+                            aria-hidden="true"
+                            v-html="item.label" />
+                        <span
+                            v-if="item.page"
+                            aria-hidden="true"
+                            v-html="item.page" />
+                    </a>
+                </slot>
+            </li>
+            <li
+                class="page-item"
+                :class="{'disabled': disabled || currentPage >= totalPages}">
+                <a
+                    href="#"
+                    class="page-link"
+                    aria-label="Next"
+                    @click.prevent="next($event)">
+                    <span aria-hidden="true">
+                        &raquo;
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</template>
