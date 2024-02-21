@@ -8,6 +8,7 @@
     "src",
     "tailwindcss"
   ],
+  "type": "module",
   "main": "./dist/pagination.umd.js",
   "module": "./index.js",
   "exports": {
