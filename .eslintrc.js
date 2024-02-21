@@ -1,5 +1,5 @@
 module.exports = {
     extends: [
-        '@vue-interface/eslint-config'
-    ],
+        '@vue-interface/eslint-config',
+    ]
 };

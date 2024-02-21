@@ -40,12 +40,18 @@
             <pagination :page="50" :total-pages="100" :show-pages="4" class="mb-3"></pagination>
             <pagination :page="50" :total-pages="100" :show-pages="10" class="mb-3"></pagination>
             <pagination :page="50" :total-pages="100" :show-pages="20" class="mb-3"></pagination>
+
+            <h2 class="text-2xl mt-6 mb-3">Reactive Page Prop</h2>
+
+            The current page is: {{ page }}
+
+            <pagination align="start" :page="page" :total-pages="100" class="mb-3"></pagination>
         </div>
 
         <script type="module">
             import './index.css';
             import { createApp } from 'vue/dist/vue.esm-bundler';
-            import { Pagination } from './index.js';
+            import { Pagination } from './index';
 
             createApp({
                 components: {
@@ -53,10 +59,13 @@
                 },
                 data() {
                     return {
-                        form: {
-                            checkbox: []
-                        }
+                        page: 1
                     }
+                },
+                mounted() {
+                    setTimeout(() => {
+                        this.page = 50;
+                    }, 1000);
                 }
             }).mount('#app');
         </script>

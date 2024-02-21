@@ -1,18 +1,30 @@
 import { defineComponent as p, openBlock as n, createElementBlock as l, createElementVNode as o, normalizeClass as h, withModifiers as g, Fragment as P, renderList as b, renderSlot as w, createCommentVNode as c } from "vue";
 const x = p({
   props: {
+    /**
+     * The drop shadow size.
+     */
     dropShadow: {
       type: [Boolean, String],
       default: void 0
     },
+    /**
+     * The shadow class prefix.
+     */
     dropShadowableClassPrefix: {
       type: String,
       default: "drop-shadow"
     },
+    /**
+     * The shadow size.
+     */
     shadow: {
       type: [Boolean, String],
       default: void 0
     },
+    /**
+     * The shadow class prefix.
+     */
     shadowableClassPrefix: {
       type: String,
       default: "shadow"
@@ -29,19 +41,38 @@ const x = p({
   }
 }), _ = p({
   props: {
+    /**
+     * The generic component prefix.
+     */
     componentPrefix: String,
+    /**
+     * The size name.
+     */
     size: String,
+    /**
+     * The sizable prefix. Should use to component prefix, unless the
+     * sizeable prefix is different than the component prefix.
+     */
     sizePrefix: String
   },
   computed: {
+    /**
+     * The computed sizeable class prefix.
+     */
     sizeableClassPrefix() {
       return this.sizePrefix || this.componentPrefix;
     },
+    /**
+     * Determines if the size already has the prefix.
+     */
     hasSizeablePrefix() {
       return this.size === void 0 ? !1 : !!this.size.match(
         new RegExp(`^${this.sizeableClassPrefix}`)
       );
     },
+    /**
+     * The size classes that get injected into the DOM.
+     */
     sizeableClass() {
       return this.size ? !this.sizeableClassPrefix || this.hasSizeablePrefix ? this.size : `${this.sizeableClassPrefix}-${this.size}` : "";
     }
@@ -58,23 +89,47 @@ const x = p({
     _
   ],
   props: {
+    /**
+     * The alignment of the pagination component.
+     *
+     * @prop String
+     */
     align: {
       type: String,
       validate: (e) => ["start", "end", "center"].indexOf(e) !== -1
     },
     disabled: Boolean,
+    /**
+     * The page on which the paginator should start.
+     *
+     * @prop String
+     */
     page: {
       type: Number,
       default: 1
     },
+    /**
+     * The number of pages to show when the total number of pages is
+     * greater than the number of pages that should be shown.
+     *
+     * @prop String
+     */
     showPages: {
       type: Number,
       default: 6
     },
+    /**
+     * The total number of pages in the paginator.
+     *
+     * @prop String
+     */
     totalPages: {
       type: Number,
       default: 1
     },
+    /**
+     * The component prefix.
+     */
     componentPrefix: {
       type: String,
       default: "pagination"
@@ -116,12 +171,12 @@ const x = p({
       return i <= this.totalPages && (this.totalPages - 1 > i && e.push({ divider: !0 }), e.push({ page: this.totalPages < 1 / 0 ? this.totalPages : "&#8734;", disabled: this.totalPages === 1 / 0 })), e;
     }
   }
-}, y = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xAB ", -1), z = [
+}, y = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " « ", -1), z = [
   y
 ], v = ["data-page"], k = {
   key: 0,
   class: "page-link"
-}, m = ["disabled", "data-label", "onClick"], N = ["innerHTML"], L = ["innerHTML"], B = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " \xBB ", -1), M = [
+}, m = ["disabled", "data-label", "onClick"], N = ["innerHTML"], L = ["innerHTML"], B = /* @__PURE__ */ o("span", { "aria-hidden": "true" }, " » ", -1), M = [
   B
 ];
 function T(e, t, a, d, i, r) {
@@ -145,7 +200,7 @@ function T(e, t, a, d, i, r) {
         class: h(["page-item", { active: s.page === i.currentPage, disabled: a.disabled || !!s.divider || !!s.disabled }])
       }, [
         w(e.$slots, "default", { item: s }, () => [
-          s.divider ? (n(), l("a", k, " \u2026 ")) : (n(), l("a", {
+          s.divider ? (n(), l("a", k, " … ")) : (n(), l("a", {
             key: 1,
             href: "#",
             class: h(["page-link", s.class]),

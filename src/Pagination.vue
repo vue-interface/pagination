@@ -1,150 +1,108 @@
-<script>
-import { Shadowable } from '@vue-interface/shadowable';
-import { Sizeable } from '@vue-interface/sizeable';
+<script setup lang="ts">
+import { computed, ref, watchEffect } from 'vue';
 
-export default {
+const props = withDefaults(defineProps<{
+    align?: 'start' | 'end' | 'center';
+    disabled?: boolean;
+    page?: number;
+    showPages?: number;
+    totalPages: number;
+}>(), {
+    align: 'center',
+    page: 1,
+    showPages: 6
+});
 
-    name: 'Pagination',
+const emit = defineEmits<{
+    (e: 'paginate', page: number)
+}>();
 
-    mixins: [
-        Shadowable,
-        Sizeable
-    ],
+const currentPage = ref<number>();
 
-    props: {
-        /**
-         * The alignment of the pagination component.
-         *
-         * @prop String
-         */
-        align: {
-            type: String,
-            validate: value => {
-                return ['start', 'end', 'center'].indexOf(value) !== -1;
-            }
-        },
+watchEffect(() => currentPage.value = props.page);
 
-        disabled: Boolean,
+const classes = computed(() => ({
+    'justify-content-center': props.align === 'center',
+    'justify-content-start': props.align === 'start',
+    'justify-content-end': props.align === 'end'
+}));
 
-        /**
-         * The page on which the paginator should start.
-         *
-         * @prop String
-         */
-        page: {
-            type: Number,
-            default: 1
-        },
+function generate() {
+    const pages = [];
 
-        /**
-         * The number of pages to show when the total number of pages is
-         * greater than the number of pages that should be shown.
-         *
-         * @prop String
-         */
-        showPages: {
-            type: Number,
-            default: 6
-        },
+    const showPages = props.showPages % 2
+        ? props.showPages + 1
+        : props.showPages;
 
-        /**
-         * The total number of pages in the paginator.
-         *
-         * @prop String
-         */
-        totalPages: {
-            type: Number,
-            default: 1
-        },
+    let startPage = (currentPage.value >= showPages)
+        ? currentPage.value - (showPages / 2)
+        : 1;
 
-        /**
-         * The component prefix.
-         */
-        componentPrefix: {
-            type: String,
-            default: 'pagination'
-        },
+    const startOffset = showPages + startPage;
 
-    },
+    const endPage = props.totalPages < startOffset
+        ? props.totalPages
+        : startOffset;
 
-    data() {
-        return {
-            currentPage: this.page
-        };
-    },
+    const diff = startPage - endPage + showPages;
 
-    computed: {
+    startPage -= (startPage - diff > 0) ? diff : 0;
 
-        pages() {
-            return this.generate();
-        },
-
-        classes() {
-            return Object.assign({
-                [this.sizeableClass]: !!this.sizeableClass,
-                [`justify-content-${this.align}`]: !!this.align
-            }, this.shadowableClass);
-        }
-
-    },
-
-    methods: {
-
-        next(event) {
-            this.paginate(this.currentPage >= this.totalPages ? this.currentPage : this.currentPage + 1, event);
-        },
-
-        prev(event) {
-            this.paginate(this.currentPage <= 1 ? this.currentPage : this.currentPage - 1, event);
-        },
-
-        paginate(page, event) {
-            if(event.currentTarget.parentNode.classList.contains('disabled')) {
-                return;
-            }
-
-            this.currentPage = page;
-            this.$emit('paginate', page, event);
-        },
-
-        generate() {
-            const pages = [];
-            const showPages = this.showPages % 2 ? this.showPages + 1 : this.showPages;
-
-            let startPage = (this.currentPage >= showPages) ? this.currentPage - (showPages / 2) : 1;
-
-            const startOffset = showPages + startPage;
-            const endPage = (this.totalPages < startOffset) ? this.totalPages : startOffset;
-            const diff = startPage - endPage + showPages;
-
-            startPage -= (startPage - diff > 0) ? diff : 0;
-
-            if(startPage > 1) {
-                pages.push({ page: 1 });
-            }
-
-            if(startPage > 2) {
-                pages.push({ divider: true });
-            }
-
-            for(let i = startPage; i < endPage; i++) {
-                pages.push({ page: i });
-            }
-
-            if(endPage <= this.totalPages) {
-                if(this.totalPages - 1 > endPage) {
-                    pages.push({ divider: true });
-                }
-
-                pages.push({ page: this.totalPages < Infinity ? this.totalPages : '&#8734;', disabled: this.totalPages === Infinity });
-            }
-
-            return pages;
-        }
-
+    if(startPage > 1) {
+        pages.push({ page: 1 });
     }
 
-};
+    if(startPage > 2) {
+        pages.push({ divider: true });
+    }
+
+    for(let i = startPage; i < endPage; i++) {
+        pages.push({ page: i });
+    }
+
+    if(endPage <= props.totalPages) {
+        if(props.totalPages - 1 > endPage) {
+            pages.push({ divider: true });
+        }
+
+        pages.push({
+            page: props.totalPages < Infinity ? props.totalPages : '&#8734;',
+            disabled: props.totalPages === Infinity
+        });
+    }
+
+    return pages;
+}
+
+const pages = computed(() => generate());
+
+function paginate(page: number) {
+    currentPage.value = page;
+    
+    emit('paginate', page);
+}
+
+function next() {
+    paginate(
+        currentPage.value >= props.totalPages
+            ? currentPage.value
+            : currentPage.value + 1
+    );
+}
+
+function prev() {
+    paginate(
+        currentPage.value <= 1
+            ? currentPage.value
+            : currentPage.value - 1
+    );
+}
+
+defineExpose({
+    paginate,
+    next,
+    prev
+});
 </script>
 
 <template>
@@ -159,7 +117,7 @@ export default {
                     href="#"
                     class="page-link"
                     aria-label="Previous"
-                    @click.prevent="prev($event)">
+                    @click.prevent="prev()">
                     <span aria-hidden="true">
                         &laquo;
                     </span>
@@ -170,7 +128,10 @@ export default {
                 :key="i"
                 :data-page="item.page"
                 class="page-item"
-                :class="{'active': item.page === currentPage, 'disabled': disabled || !!item.divider || !!item.disabled}">
+                :class="{
+                    active: item.page === currentPage,
+                    disabled: disabled || !!item.divider || !!item.disabled
+                }">
                 <slot :item="item">
                     <a
                         v-if="item.divider"
@@ -184,15 +145,17 @@ export default {
                         :class="item.class"
                         :disabled="disabled"
                         :data-label="item.label"
-                        @click.prevent="paginate(item.page, $event)">
+                        @click.prevent="paginate(item.page)">
                         <span
                             v-if="item.label"
-                            aria-hidden="true"
-                            v-html="item.label" />
+                            aria-hidden="true">
+                            {{ item.label }}
+                        </span>
                         <span
                             v-if="item.page"
-                            aria-hidden="true"
-                            v-html="item.page" />
+                            aria-hidden="true">
+                            {{ item.page }}
+                        </span>
                     </a>
                 </slot>
             </li>
@@ -203,7 +166,7 @@ export default {
                     href="#"
                     class="page-link"
                     aria-label="Next"
-                    @click.prevent="next($event)">
+                    @click.prevent="next()">
                     <span aria-hidden="true">
                         &raquo;
                     </span>

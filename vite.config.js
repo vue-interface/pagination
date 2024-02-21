@@ -2,30 +2,31 @@ import vue from '@vitejs/plugin-vue';
 import { pascalCase } from 'change-case';
 import path from 'path';
 import { defineConfig } from 'vite';
-import { name } from './package.json';
+import pkg from './package.json';
 
-const filename = name.split('/')[1];
+const fileName = pkg.name.split('/')[1];
 
-export default defineConfig({
+const external = [
+    ...(pkg.dependencies ? Object.keys(pkg.dependencies) : []),
+    ...(pkg.peerDependencies ? Object.keys(pkg.peerDependencies) : [])
+];
+
+export default ({ command }) => defineConfig({
     build: {
+        sourcemap: command === 'build',
         lib: {
-            entry: path.resolve(__dirname, 'index.js'),
-            name: pascalCase(filename),
-            fileName: (format) => `${filename}.${format}.js`,
+            entry: path.resolve(__dirname, 'index.ts'),
+            name: pascalCase(fileName),
+            fileName,
         },
         rollupOptions: {
-            external: ['vue'],
+            external,
             output: {
-                assetFileNames: ({ name }) => {
-                    if(name === 'style.css') {
-                        return `${filename}.css`;
-                    }
-    
-                    return name;
-                },
-                globals: {
-                    vue: 'Vue'
-                },
+                globals: external.reduce((carry, dep) => {
+                    return Object.assign(carry, {
+                        [dep]: pascalCase(dep)
+                    });
+                }, {}),
             }
         },
         watch: !process.env.NODE_ENV && {
