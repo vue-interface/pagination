@@ -1,3 +1,10 @@
+# [2.0.0-beta.4](https://github.com/vue-interface/pagination/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2024-02-21)
+
+
+### Bug Fixes
+
+* cjs issues with tailwind exports ([4e0400d](https://github.com/vue-interface/pagination/commit/4e0400dc14efef5059e55d9bd70a13538e5e3b67))
+
 # [2.0.0-beta.3](https://github.com/vue-interface/pagination/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2024-02-21)
 
 
