@@ -3,6 +3,15 @@
 
 ### Bug Fixes
 
+* removed dist dir ([4e2f305](https://github.com/vue-interface/pagination/commit/4e2f305d052651e71eac0bc8776727858bdd92cc))
+* versioning issues ([4156d57](https://github.com/vue-interface/pagination/commit/4156d57a64469569b545148acde50bc0e4e97b96))
+* versioning issues ([a42daa9](https://github.com/vue-interface/pagination/commit/a42daa978ed4026ede52162fb43945b7cd0178cc))
+
+# [2.0.0-beta.1](https://github.com/vue-interface/pagination/compare/v1.0.2-beta.1...v2.0.0-beta.1) (2024-02-21)
+
+
+### Bug Fixes
+
 * versioning issues ([a42daa9](https://github.com/vue-interface/pagination/commit/a42daa978ed4026ede52162fb43945b7cd0178cc))
 
 ## [1.0.2-beta.1](https://github.com/vue-interface/pagination/compare/v1.0.1...v1.0.2-beta.1) (2024-02-21)
