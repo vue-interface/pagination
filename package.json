@@ -11,6 +11,7 @@
   "type": "module",
   "main": "./dist/pagination.umd.js",
   "module": "./index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/pagination.js",
