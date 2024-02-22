@@ -1,3 +1,10 @@
+# [2.0.0-beta.5](https://github.com/vue-interface/pagination/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2024-02-21)
+
+
+### Bug Fixes
+
+* fix more cjs and export issues ([2d63bf3](https://github.com/vue-interface/pagination/commit/2d63bf3532ed8dceae95002ad9e67ee0a79b4026))
+
 # [2.0.0-beta.4](https://github.com/vue-interface/pagination/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2024-02-21)
 
 
