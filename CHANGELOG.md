@@ -1,3 +1,10 @@
+# [2.0.0-beta.6](https://github.com/vue-interface/pagination/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2024-02-22)
+
+
+### Bug Fixes
+
+* added types definition to package.json ([458899f](https://github.com/vue-interface/pagination/commit/458899fce04342c5d3cfe6de0a11a885e5c80b4f))
+
 # [2.0.0-beta.5](https://github.com/vue-interface/pagination/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2024-02-21)
 
 
